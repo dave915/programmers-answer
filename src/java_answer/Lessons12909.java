@@ -1,7 +1,5 @@
 package java_answer;
 
-import java.util.Stack;
-
 /**
  * @author dave.th
  * https://programmers.co.kr/learn/courses/30/lessons/12909
@@ -11,23 +9,18 @@ public class Lessons12909 {
         System.out.println((new Lessons12909()).solution("()()"));
     }
 
-    private boolean solution(String s) {
-        Stack<Character> stack = new Stack<>();
-
-        int i=0;
+    private boolean solution(String s) { // 스택 사용시 시간초과떠서 카운팅 변수 하나만 사용
+        int count = 0;
         char[] arr = s.toCharArray();
-        for(char c : arr) {
-            if("(".charAt(0) == c) {
-                stack.push(c);
+        for(int i=0; i<arr.length; i++) {
+            if("(".charAt(0) == arr[i]) {
+                count++;
             } else {
-                if(stack.isEmpty()) return false;
-                stack.pop();
+                if(count == 0) return false;
+                count--;
             }
-            i++;
-
-            if(stack.size() > arr.length - i) return false;
+            if(count > arr.length - i) return false;
         }
-
-        return stack.isEmpty();
+        return count == 0;
     }
 }
